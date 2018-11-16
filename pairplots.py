@@ -1,6 +1,7 @@
 from sklearn import linear_model
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 import numpy as np
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
@@ -18,18 +19,7 @@ obs = ['clump_thickness', 'uniformity_of_cell_size', 'uniformity_of_cell_shape',
        'single_epithelial_cell_size', 'bare_nuclei', 'bland_chromatin', 'normal_nucleoli', 'mitoses']
 
 observed_data = cancer_data_clean.loc[:,obs]
-class_data = cancer_data_clean.loc[:,'class']
-
-labels = 'Benign', 'Malignant'
-
-sizes = [cancer_data_clean['class'].value_counts()[2], cancer_data_clean['class'].value_counts()[4]]
-colors = ['gold', 'yellowgreen']
-explode = (0.1, 0)  # explode 1st slice
-
-# Plot
-plt.pie(sizes, explode=explode, labels=labels, colors=colors,
-        autopct='%1.1f%%', shadow=True)
-
-plt.axis('equal')
+#data = cancer_data_clean.loc[:,'uniformity_of_cell_size'].plot(kind='hist', color='yellowgreen')
+sns.set_palette(sns.color_palette("BuGn_r"))
+g = sns.pairplot(cancer_data_clean, vars=["uniformity_of_cell_size", "class"], diag_kind= 'kde')
 plt.show()
-
